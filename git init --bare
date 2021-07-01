@@ -1,0 +1,18 @@
+# Learning
+What is git init --bare .
+
+The standard way of initializing a new Git repository is to run "git init". The directory in which you do this will be become the Working Tree for the repository.
+
+As part of the initialization process, Git creates a .git directory (which his hidden by default because of the . in the name) that contains the repository itself. This is brains of the repository; it's where Git tracks your changes, stores commit objects, refs, etc. You probably only rarely interact with that hidden directory.
+
+Okay, so all of this is to lay the groundwork for understanding a bare Git repository. What the heck is it?
+
+A bare Git repository is a repository that is created without a Working Tree. Go ahead and create one to see.
+
+git init --bare .
+
+Run ls on that directory and you won't see a Working Tree but just the contents of what is typically in the .git directory.
+
+Why this setup?
+
+A bare Git repository is typically used as a Remote Repository that is sharing a repository among several different people. You don't do work right inside the remote repository so there's no Working Tree (the files in your project that you edit), just bare repository data.
