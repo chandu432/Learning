@@ -1,1 +1,24 @@
+#git clone --mirror and git clone --bare
+https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone
 
+Suppose origin(In Git, "origin" is a shorthand name for the remote repository that a project was originally cloned from) has a few branches (master (HEAD), next, pu, and maint), 
+some tags (v1, v2, v3), some remote branches (devA/master, devB/master),
+and some other refs (refs/foo/bar, refs/foo/baz, which might be notes, stashes, other devs' namespaces, who knows).
+
+git clone origin-url (non-bare): 
+You will get all of the tags copied, a local branch master (HEAD) tracking a remote branch origin/master, and remote branches origin/next, origin/pu, and origin/maint.
+The tracking branches are set up so that if you do something like git fetch origin, they'll be fetched as you expect. Like git checkout branch b and git pull origin b
+Any remote branches (in the cloned remote) and other refs are completely ignored.
+
+git clone --bare origin-url: 
+You will get all of the tags copied, local branches master (HEAD), next, pu, and maint, no remote tracking branches. 
+That is, all branches are copied as is, and it's set up completely independent, with no expectation of fetching again.
+Any remote branches (in the cloned remote) and other refs are completely ignored.
+
+git clone --mirror origin-url: 
+Every last one of those refs will be copied as-is. You'll get all the tags, local branches master (HEAD), next, pu, and maint,
+remote branches devA/master and devB/master, other refs refs/foo/bar and refs/foo/baz.
+Everything is exactly as it was in the cloned remote.
+Remote tracking is set up so that if you run git remote update all refs will be overwritten from origin,
+as if you'd just deleted the mirror and recloned it. As the docs originally said, it's a mirror. 
+It's supposed to be a functionally identical copy, interchangeable with the original.
